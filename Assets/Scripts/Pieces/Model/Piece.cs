@@ -15,6 +15,25 @@ public class Piece : MonoBehaviour
         Desert
     }
 
+    public Color get_color()
+    {
+        switch (this.type) {
+            case Type.Brick:
+                return new Color(0.75f, 0.2f, 0, 1);
+            case Type.Wood:
+                return new Color(0, 0.35f, 0, 1);
+            case Type.Stone:
+                return new Color(0.4f, 0.4f, 0.4f, 1);
+            case Type.Wheat:
+                return new Color(1, 0.8f, 0, 1);
+            case Type.Sheep:
+                return new Color(0.75f, 1, 0.5f, 1);
+            default:
+                return new Color(1, 1, 1, 1);
+        }
+    }
+
+    private GameObject view;
     private int number;
     private Type type;
     private Vertex[] verts;
@@ -31,15 +50,13 @@ public class Piece : MonoBehaviour
         for (int i = 0; i < NUM_VERTS; ++i)
         {
             verts[i] = new Vertex();
-            verts[i].add_piece(this);
         }
         for (int i = 0; i < NUM_EDGES; ++i)
         {
             int v1_ind = i;
             int v2_ind = (i + 1) % NUM_VERTS;
             edges[i] = new Edge(verts[v1_ind], verts[v2_ind]);
-            edges[i].add_piece(this);
-        } 
+        }
     }
 
     public Type get_type()
@@ -56,6 +73,16 @@ public class Piece : MonoBehaviour
         this.number = number;
     }
 
+
+    public void set_view(GameObject view)
+    {
+        this.view = view;
+    }
+
+    public GameObject get_view()
+    {
+        return this.view;
+    }
 
     // Start is called before the first frame update
     void Start()

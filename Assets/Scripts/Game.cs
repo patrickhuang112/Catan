@@ -7,6 +7,8 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
 
+    public GameObject piece_prefab;
+
     private const int NUM_WOOD_PIECES = 4;
     private const int NUM_BRICK_PIECES = 3;
     private const int NUM_WHEAT_PIECES = 4;
@@ -30,6 +32,8 @@ public class Game : MonoBehaviour
         
     }
 
+
+
     private void create_pieces()
     {
         for (int i = 0; i < create_pieces_amount.Length; ++i)
@@ -42,8 +46,12 @@ public class Game : MonoBehaviour
                 {
                     playable_pieces.Add(piece);
                 }
+                GameObject piece_view = Instantiate(piece_prefab);
+                piece.set_view(piece_view);
+                piece_view.GetComponent<SpriteRenderer>().color = piece.get_color();
             }
         }    
+        
     }
 
     public void shuffle_array(int[] array)
@@ -79,7 +87,8 @@ public class Game : MonoBehaviour
     void Start()
     {
         create_board();
-        create_pieces(); 
+        create_pieces();
+        Debug.Log("hello");     
     }
 
     // Update is called once per frame
